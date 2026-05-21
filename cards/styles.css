@@ -17,7 +17,7 @@ body {
 .header {
     text-align: center;
     color: white;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
@@ -33,6 +33,40 @@ body {
     font-size: 1.2em;
     opacity: 0.9;
     font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
+    margin-bottom: 20px;
+}
+
+.language-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.language-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
+}
+
+.language-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.language-btn.active {
+    background: white;
+    color: #667eea;
+    border-color: white;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .cards-container {
@@ -45,7 +79,7 @@ body {
 
 .tcg-card {
     perspective: 1000px;
-    height: 420px;
+    height: 460px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -110,7 +144,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     position: relative;
     z-index: 1;
 }
@@ -136,19 +170,47 @@ body {
     border: 1px solid rgba(255,255,255,0.3);
 }
 
+.fan-name-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.fan-name-label {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #0099cc;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+}
+
+.fan-name-value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #006699;
+    font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
+}
+
 .card-image {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15px 0;
+    margin: 10px 0;
     position: relative;
     z-index: 1;
 }
 
 .pokemon-img {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
@@ -156,15 +218,15 @@ body {
 .card-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 15px 0;
+    gap: 8px;
+    margin: 10px 0;
     position: relative;
     z-index: 1;
 }
 
 .stat {
     background: rgba(255,255,255,0.9);
-    padding: 10px;
+    padding: 8px;
     border-radius: 8px;
     text-align: center;
     border: 2px solid #00d4ff;
@@ -172,7 +234,7 @@ body {
 }
 
 .stat-label {
-    font-size: 0.75em;
+    font-size: 0.7em;
     color: #0099cc;
     font-weight: bold;
     text-transform: uppercase;
@@ -180,7 +242,7 @@ body {
 }
 
 .stat-value {
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: bold;
     color: #006699;
 }
@@ -189,7 +251,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.85em;
+    font-size: 0.8em;
     position: relative;
     z-index: 1;
     font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
@@ -199,7 +261,7 @@ body {
 .rarity {
     color: #ffd700;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1em;
     letter-spacing: 2px;
 }
 
@@ -260,7 +322,7 @@ body {
 
 .ex-badge {
     position: absolute;
-    bottom: 70px;
+    bottom: 80px;
     right: 10px;
     background: linear-gradient(135deg, #ff0000, #cc0000);
     color: white;
@@ -288,7 +350,20 @@ body {
         font-size: 2em;
     }
 
+    .language-selector {
+        gap: 5px;
+    }
+
+    .language-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
     .cards-container {
         grid-template-columns: 1fr;
+    }
+
+    .tcg-card {
+        height: 420px;
     }
 }
