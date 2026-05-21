@@ -92,6 +92,11 @@
             overflow: hidden;
         }
 
+        .card-front.teracristal {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #00bcd4 100%);
+            border: 3px solid #00d4ff;
+        }
+
         .card-front::before {
             content: '';
             position: absolute;
@@ -102,6 +107,11 @@
             background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.4), transparent),
                         radial-gradient(circle at 80% 80%, rgba(255,215,0,0.2), transparent);
             pointer-events: none;
+        }
+
+        .card-front.teracristal::before {
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.6), transparent),
+                        radial-gradient(circle at 80% 80%, rgba(0,212,255,0.3), transparent);
         }
 
         .card-back {
@@ -128,6 +138,11 @@
             color: #333;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
             font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
+        }
+
+        .card-front.teracristal .pokemon-name {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .card-type {
@@ -166,6 +181,10 @@
             background: radial-gradient(circle, #ff69b4, #ff1493);
         }
 
+        .card-type.teracristal {
+            background: radial-gradient(circle, #00d4ff, #0099cc);
+        }
+
         .card-image {
             flex: 1;
             display: flex;
@@ -201,6 +220,11 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        .card-front.teracristal .stat {
+            background: rgba(255,255,255,0.8);
+            border: 2px solid #00d4ff;
+        }
+
         .stat-label {
             font-size: 0.75em;
             color: #666;
@@ -232,9 +256,17 @@
             letter-spacing: 2px;
         }
 
+        .card-front.teracristal .rarity {
+            color: white;
+        }
+
         .pokemon-number {
             color: #666;
             font-weight: bold;
+        }
+
+        .card-front.teracristal .pokemon-number {
+            color: white;
         }
 
         .card-back-content {
@@ -285,6 +317,22 @@
             font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
         }
 
+        .ex-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.7em;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 51, 51, 0.4);
+            z-index: 2;
+            text-transform: uppercase;
+            font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
+        }
+
         .footer {
             margin-top: 60px;
             text-align: center;
@@ -311,6 +359,49 @@
     </div>
 
     <div class="cards-container">
+        <!-- イーブイ テラスタル EX (Eevee Teracristal EX) -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front teracristal">
+                    <div class="terastal-badge">テラスタル</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="ex-badge">EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">イーブイ</div>
+                        <div class="card-type teracristal">テラスタル</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png" alt="Eevee" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">150</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">こうげき</div>
+                            <div class="stat-value">130</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ぼうぎょ</div>
+                            <div class="stat-value">120</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">No. 133</span>
+                        <span class="rarity">SAR</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">💎</div>
+                        <div class="card-back-text">イーブイ テラスタル EX</div>
+                        <div class="card-back-text">テラスタル タイプ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- シャワーズ (Vaporeon) -->
         <div class="tcg-card">
             <div class="card-inner">
@@ -483,7 +574,7 @@
         <div class="tcg-card">
             <div class="card-inner">
                 <div class="card-front dark">
-                    <div class="terastal-badge">テラス���ル</div>
+                    <div class="terastal-badge">テラスタル</div>
                     <div class="sar-badge">SAR EX</div>
                     <div class="card-header">
                         <div class="pokemon-name" style="color: #ffd700;">ブラッキー</div>
