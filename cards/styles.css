@@ -151,11 +151,45 @@ body {
     padding: 20px;
 }
 
-.card-front {
-    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #006699 100%);
-    border: 3px solid #00d4ff;
-    position: relative;
-    overflow: hidden;
+/* Colores por tipo */
+.card-front.type-normal {
+    background: linear-gradient(135deg, #d3d3d3 0%, #a9a9a9 100%);
+    border: 3px solid #808080;
+}
+
+.card-front.type-water {
+    background: linear-gradient(135deg, #87ceeb 0%, #4a90e2 100%);
+    border: 3px solid #0099cc;
+}
+
+.card-front.type-electric {
+    background: linear-gradient(135deg, #ffff00 0%, #ffcc00 100%);
+    border: 3px solid #ff9900;
+}
+
+.card-front.type-fire {
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
+    border: 3px solid #cc3300;
+}
+
+.card-front.type-dark {
+    background: linear-gradient(135deg, #2f2f2f 0%, #000000 100%);
+    border: 3px solid #1a1a1a;
+}
+
+.card-front.type-ice {
+    background: linear-gradient(135deg, #b0e0e6 0%, #87ceeb 100%);
+    border: 3px solid #4fc3f7;
+}
+
+.card-front.type-grass {
+    background: linear-gradient(135deg, #90ee90 0%, #6bb86b 100%);
+    border: 3px solid #228b22;
+}
+
+.card-front.type-fairy {
+    background: linear-gradient(135deg, #ffb6d9 0%, #ff69b4 100%);
+    border: 3px solid #ff1493;
 }
 
 .card-front::before {
@@ -165,8 +199,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(circle at 80% 80%, rgba(0,212,255,0.2), transparent);
+    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.2), transparent),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1), transparent);
     pointer-events: none;
 }
 
@@ -197,16 +231,16 @@ body {
 }
 
 .card-type {
-    background: radial-gradient(circle, #00d4ff, #0099cc);
-    color: white;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.85em;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 212, 255, 0.4);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
     font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.2);
 }
 
 .fan-name-section {
@@ -236,7 +270,7 @@ body {
 .fan-name-label {
     font-size: 0.8em;
     font-weight: bold;
-    color: #0099cc;
+    color: #333;
     text-transform: uppercase;
     font-family: 'Arial', sans-serif;
 }
@@ -244,7 +278,7 @@ body {
 .fan-name-value {
     font-size: 1.1em;
     font-weight: bold;
-    color: #006699;
+    color: #666;
     font-family: 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', sans-serif;
 }
 
@@ -279,7 +313,7 @@ body {
     padding: 8px;
     border-radius: 8px;
     text-align: center;
-    border: 2px solid #00d4ff;
+    border: 2px solid rgba(0,0,0,0.2);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
