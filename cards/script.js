@@ -13,7 +13,7 @@ const pokemonCards = [
         attack: 130,
         defense: 120,
         number: 133,
-        emoji: ""
+        emoji: "🎴"
     },
     {
         nameJa: "シャワーズ",
@@ -28,7 +28,7 @@ const pokemonCards = [
         attack: 145,
         defense: 160,
         number: 134,
-        emoji: ""
+        emoji: "💧"
     },
     {
         nameJa: "サンダース",
@@ -43,7 +43,7 @@ const pokemonCards = [
         attack: 190,
         defense: 140,
         number: 135,
-        emoji: ""
+        emoji: "⚡"
     },
     {
         nameJa: "ブースター",
@@ -58,7 +58,7 @@ const pokemonCards = [
         attack: 190,
         defense: 140,
         number: 136,
-        emoji: ""
+        emoji: "🔥"
     },
     {
         nameJa: "エーフィ",
@@ -73,7 +73,7 @@ const pokemonCards = [
         attack: 160,
         defense: 175,
         number: 196,
-        emoji: ""
+        emoji: "✨"
     },
     {
         nameJa: "ブラッキー",
@@ -88,7 +88,7 @@ const pokemonCards = [
         attack: 155,
         defense: 190,
         number: 197,
-        emoji: ""
+        emoji: "🌙"
     },
     {
         nameJa: "グレイシア",
@@ -103,7 +103,7 @@ const pokemonCards = [
         attack: 170,
         defense: 165,
         number: 471,
-        emoji: ""
+        emoji: "❄️"
     },
     {
         nameJa: "リーフィア",
@@ -118,7 +118,7 @@ const pokemonCards = [
         attack: 175,
         defense: 165,
         number: 470,
-        emoji: ""
+        emoji: "🍃"
     },
     {
         nameJa: "ニンフィア",
@@ -133,7 +133,7 @@ const pokemonCards = [
         attack: 160,
         defense: 170,
         number: 700,
-        emoji: ""
+        emoji: "💫"
     }
 ];
 
@@ -235,7 +235,6 @@ function createCard(pokemon, lang) {
                 </div>
                 <div class="card-back">
                     <div class="card-back-content">
-                        <div class="card-back-logo"></div>
                         <div class="card-back-text">${name}</div>
                         <div class="card-back-text">${type}</div>
                     </div>
