@@ -1,10 +1,14 @@
-// Array de datos de Eeveevolutions Teracristal EX
+// Array de datos de Eeveevolutions Teracristal EX con Fan-Names
 const pokemonCards = [
     {
-        name: "イーブイ",
+        nameJa: "イーブイ",
         nameEn: "Eevee",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Eevee",
+        fanName: "Lechuga EX",
+        type: "ノーマル",
+        typeEn: "Normal",
+        typeEs: "Normal",
+        typeJa: "ノーマル",
         hp: 150,
         attack: 130,
         defense: 120,
@@ -12,10 +16,14 @@ const pokemonCards = [
         emoji: "🎴"
     },
     {
-        name: "シャワーズ",
+        nameJa: "シャワーズ",
         nameEn: "Vaporeon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Vaporeon",
+        fanName: "Vapp EX",
+        type: "みず",
+        typeEn: "Water",
+        typeEs: "Agua",
+        typeJa: "みず",
         hp: 180,
         attack: 145,
         defense: 160,
@@ -23,10 +31,14 @@ const pokemonCards = [
         emoji: "💧"
     },
     {
-        name: "サンダース",
+        nameJa: "サンダース",
         nameEn: "Jolteon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Jolteon",
+        fanName: "Enchufe EX",
+        type: "でんき",
+        typeEn: "Electric",
+        typeEs: "Eléctrico",
+        typeJa: "でんき",
         hp: 170,
         attack: 190,
         defense: 140,
@@ -34,10 +46,14 @@ const pokemonCards = [
         emoji: "⚡"
     },
     {
-        name: "ブースター",
+        nameJa: "ブースター",
         nameEn: "Flareon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Flareon",
+        fanName: "Flary EX",
+        type: "ほのお",
+        typeEn: "Fire",
+        typeEs: "Fuego",
+        typeJa: "ほのお",
         hp: 175,
         attack: 190,
         defense: 140,
@@ -45,10 +61,14 @@ const pokemonCards = [
         emoji: "🔥"
     },
     {
-        name: "エーフィ",
+        nameJa: "エーフィ",
         nameEn: "Espeon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Espeon",
+        fanName: "Gema Psi EX",
+        type: "エスパー",
+        typeEn: "Psychic",
+        typeEs: "Psíquico",
+        typeJa: "エスパー",
         hp: 185,
         attack: 160,
         defense: 175,
@@ -56,10 +76,14 @@ const pokemonCards = [
         emoji: "✨"
     },
     {
-        name: "ブラッキー",
+        nameJa: "ブラッキー",
         nameEn: "Umbreon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Umbreon",
+        fanName: "Sunbreon EX",
+        type: "あく",
+        typeEn: "Dark",
+        typeEs: "Oscuro",
+        typeJa: "あく",
         hp: 190,
         attack: 155,
         defense: 190,
@@ -67,10 +91,14 @@ const pokemonCards = [
         emoji: "🌙"
     },
     {
-        name: "グレイシア",
+        nameJa: "グレイシア",
         nameEn: "Glaceon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Glaceon",
+        fanName: "La Hielo EX",
+        type: "こおり",
+        typeEn: "Ice",
+        typeEs: "Hielo",
+        typeJa: "こおり",
         hp: 175,
         attack: 170,
         defense: 165,
@@ -78,10 +106,14 @@ const pokemonCards = [
         emoji: "❄️"
     },
     {
-        name: "リーフィア",
+        nameJa: "リーフィア",
         nameEn: "Leafeon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Leafeon",
+        fanName: "Lechuga EX",
+        type: "くさ",
+        typeEn: "Grass",
+        typeEs: "Planta",
+        typeJa: "くさ",
         hp: 180,
         attack: 175,
         defense: 165,
@@ -89,10 +121,14 @@ const pokemonCards = [
         emoji: "🍃"
     },
     {
-        name: "ニンフィア",
+        nameJa: "ニンフィア",
         nameEn: "Sylveon",
-        type: "テラスタル",
-        typeJa: "テラスタル",
+        nameEs: "Sylveon",
+        fanName: "La Femboy EX",
+        type: "フェアリー",
+        typeEn: "Fairy",
+        typeEs: "Hada",
+        typeJa: "フェアリー",
         hp: 190,
         attack: 160,
         defense: 170,
@@ -101,13 +137,65 @@ const pokemonCards = [
     }
 ];
 
-// Función para generar la URL de imagen de PokeAPI
+// Variable global para idioma actual
+let currentLanguage = 'ja'; // 'ja' (Japonés), 'en' (Inglés), 'es' (Español)
+
+// Función para obtener la URL de imagen de PokeAPI
 function getPokemonImageUrl(number) {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${number}.png`;
 }
 
+// Función para obtener el nombre según el idioma
+function getNameByLanguage(pokemon, lang) {
+    if (lang === 'ja') return pokemon.nameJa;
+    if (lang === 'en') return pokemon.nameEn;
+    if (lang === 'es') return pokemon.nameEs;
+}
+
+// Función para obtener el tipo según el idioma
+function getTypeByLanguage(pokemon, lang) {
+    if (lang === 'ja') return pokemon.typeJa;
+    if (lang === 'en') return pokemon.typeEn;
+    if (lang === 'es') return pokemon.typeEs;
+}
+
+// Función para obtener etiquetas según el idioma
+function getLabels(lang) {
+    const labels = {
+        ja: {
+            hp: 'HP',
+            attack: 'こうげき',
+            defense: 'ぼうぎょ',
+            number: 'No.',
+            fanName: 'ファンネーム',
+            clickToFlip: 'カードをクリックしてターン'
+        },
+        en: {
+            hp: 'HP',
+            attack: 'Attack',
+            defense: 'Defense',
+            number: 'No.',
+            fanName: 'Fan Name',
+            clickToFlip: 'Click card to flip'
+        },
+        es: {
+            hp: 'PV',
+            attack: 'Ataque',
+            defense: 'Defensa',
+            number: 'No.',
+            fanName: 'Nombre Fans',
+            clickToFlip: 'Haz clic para girar'
+        }
+    };
+    return labels[lang] || labels['ja'];
+}
+
 // Función para crear una tarjeta
-function createCard(pokemon) {
+function createCard(pokemon, lang) {
+    const labels = getLabels(lang);
+    const name = getNameByLanguage(pokemon, lang);
+    const type = getTypeByLanguage(pokemon, lang);
+    
     return `
         <div class="tcg-card">
             <div class="card-inner">
@@ -116,36 +204,40 @@ function createCard(pokemon) {
                     <div class="sar-badge">SAR EX</div>
                     <div class="ex-badge">EX</div>
                     <div class="card-header">
-                        <div class="pokemon-name">${pokemon.name}</div>
-                        <div class="card-type">${pokemon.typeJa}</div>
+                        <div class="pokemon-name">${name}</div>
+                        <div class="card-type">${type}</div>
+                    </div>
+                    <div class="fan-name-section">
+                        <span class="fan-name-label">${labels.fanName}:</span>
+                        <span class="fan-name-value">${pokemon.fanName}</span>
                     </div>
                     <div class="card-image">
                         <img src="${getPokemonImageUrl(pokemon.number)}" alt="${pokemon.nameEn}" class="pokemon-img">
                     </div>
                     <div class="card-stats">
                         <div class="stat">
-                            <div class="stat-label">HP</div>
+                            <div class="stat-label">${labels.hp}</div>
                             <div class="stat-value">${pokemon.hp}</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-label">こうげき</div>
+                            <div class="stat-label">${labels.attack}</div>
                             <div class="stat-value">${pokemon.attack}</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-label">ぼうぎょ</div>
+                            <div class="stat-label">${labels.defense}</div>
                             <div class="stat-value">${pokemon.defense}</div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span class="pokemon-number">No. ${pokemon.number}</span>
+                        <span class="pokemon-number">${labels.number} ${pokemon.number}</span>
                         <span class="rarity">SAR</span>
                     </div>
                 </div>
                 <div class="card-back">
                     <div class="card-back-content">
                         <div class="card-back-logo">${pokemon.emoji}</div>
-                        <div class="card-back-text">${pokemon.name}</div>
-                        <div class="card-back-text">${pokemon.typeJa} タイプ</div>
+                        <div class="card-back-text">${name}</div>
+                        <div class="card-back-text">${type}</div>
                     </div>
                 </div>
             </div>
@@ -153,15 +245,23 @@ function createCard(pokemon) {
     `;
 }
 
-// Generar todas las tarjetas cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
+// Función para cambiar idioma
+function changeLanguage(lang) {
+    currentLanguage = lang;
     const container = document.getElementById('cardsContainer');
-    
-    // Generar HTML de todas las tarjetas
-    const cardsHTML = pokemonCards.map(pokemon => createCard(pokemon)).join('');
+    const cardsHTML = pokemonCards.map(pokemon => createCard(pokemon, lang)).join('');
     container.innerHTML = cardsHTML;
+    attachFlipListeners();
     
-    // Agregar funcionalidad de flip a todas las tarjetas
+    // Actualizar botones de idioma
+    document.querySelectorAll('.language-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+}
+
+// Función para agregar listeners de flip
+function attachFlipListeners() {
     const cards = document.querySelectorAll('.tcg-card');
     cards.forEach(card => {
         card.addEventListener('click', function() {
@@ -171,4 +271,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 : 'rotateY(180deg)';
         });
     });
+}
+
+// Generar todas las tarjetas cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('cardsContainer');
+    const cardsHTML = pokemonCards.map(pokemon => createCard(pokemon, 'ja')).join('');
+    container.innerHTML = cardsHTML;
+    attachFlipListeners();
+    
+    // Marcar botón de idioma activo
+    document.querySelector('[data-lang="ja"]').classList.add('active');
 });
