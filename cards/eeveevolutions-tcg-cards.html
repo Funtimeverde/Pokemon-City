@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eeveevolutions - Cartas TCG Japonesas | Pokémon City</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tcg-card {
+            perspective: 1000px;
+            height: 420px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .tcg-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .tcg-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            padding: 20px;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ffd89b 0%, #ffe5a6 50%, #fff4c1 100%);
+            border: 3px solid #d4af37;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.4), transparent),
+                        radial-gradient(circle at 80% 80%, rgba(255,215,0,0.2), transparent);
+            pointer-events: none;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid #667eea;
+            transform: rotateY(180deg);
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pokemon-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .card-type {
+            background: radial-gradient(circle, #ff6b9d, #ff4d7d);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(255, 107, 157, 0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .card-type.water {
+            background: radial-gradient(circle, #3498db, #2980b9);
+        }
+
+        .card-type.ice {
+            background: radial-gradient(circle, #00bcd4, #0097a7);
+        }
+
+        .card-type.electric {
+            background: radial-gradient(circle, #ffc107, #ff9800);
+        }
+
+        .card-type.dark {
+            background: radial-gradient(circle, #424242, #212121);
+        }
+
+        .card-type.psychic {
+            background: radial-gradient(circle, #9c27b0, #7b1fa2);
+        }
+
+        .card-type.fairy {
+            background: radial-gradient(circle, #ff69b4, #ff1493);
+        }
+
+        .card-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pokemon-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #d4af37;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            font-size: 0.75em;
+            color: #666;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .rarity {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .pokemon-number {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .card-back-content {
+            text-align: center;
+            transform: rotateY(180deg);
+        }
+
+        .card-back-logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .card-back-text {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .sar-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b9d, #ff4d7d);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .terastal-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>✨ Eeveevolutions TCG ✨</h1>
+        <p>Terastal Fest EX SAR Collection - Pokémon City</p>
+    </div>
+
+    <div class="cards-container">
+        <!-- Vaporeon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front water">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Vaporeon</div>
+                        <div class="card-type water">Agua</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/134.png" alt="Vaporeon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">120</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">95</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">130</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#134</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">💧</div>
+                        <div class="card-back-text">Vaporeon</div>
+                        <div class="card-back-text">El Pokémon Acuático</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jolteon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front electric">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Jolteon</div>
+                        <div class="card-type electric">Eléctrico</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/135.png" alt="Jolteon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">110</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">140</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">100</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#135</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">⚡</div>
+                        <div class="card-back-text">Jolteon</div>
+                        <div class="card-back-text">El Pokémon Rayo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flareon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front" style="background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 50%, #ff5722 100%); border-color: #e64a19;">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Flareon</div>
+                        <div class="card-type" style="background: radial-gradient(circle, #ff5722, #d84315);">Fuego</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/136.png" alt="Flareon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">115</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">140</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">100</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#136</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">🔥</div>
+                        <div class="card-back-text">Flareon</div>
+                        <div class="card-back-text">El Pokémon Fuego</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Espeon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front psychic">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Espeon</div>
+                        <div class="card-type psychic">Psíquico</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/196.png" alt="Espeon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">125</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">110</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">125</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#196</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">✨</div>
+                        <div class="card-back-text">Espeon</div>
+                        <div class="card-back-text">El Pokémon Sol</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Umbreon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front dark">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name" style="color: #ffd700;">Umbreon</div>
+                        <div class="card-type dark">Siniestro</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/197.png" alt="Umbreon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">130</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">105</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">140</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number" style="color: #ffd700;">#197</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">🌙</div>
+                        <div class="card-back-text">Umbreon</div>
+                        <div class="card-back-text">El Pokémon Luna</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glaceon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front ice">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Glaceon</div>
+                        <div class="card-type ice">Hielo</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/471.png" alt="Glaceon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">115</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">120</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">115</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#471</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">❄️</div>
+                        <div class="card-back-text">Glaceon</div>
+                        <div class="card-back-text">El Pokémon Nieve</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leafeon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front" style="background: linear-gradient(135deg, #7cb342 0%, #9ccc65 50%, #aed581 100%); border-color: #689f38;">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Leafeon</div>
+                        <div class="card-type" style="background: radial-gradient(circle, #7cb342, #558b2f);">Planta</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/470.png" alt="Leafeon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">120</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">125</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">115</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#470</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">🍃</div>
+                        <div class="card-back-text">Leafeon</div>
+                        <div class="card-back-text">El Pokémon Verde</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sylveon -->
+        <div class="tcg-card">
+            <div class="card-inner">
+                <div class="card-front fairy">
+                    <div class="terastal-badge">Terastal</div>
+                    <div class="sar-badge">SAR EX</div>
+                    <div class="card-header">
+                        <div class="pokemon-name">Sylveon</div>
+                        <div class="card-type fairy">Hada</div>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/700.png" alt="Sylveon" class="pokemon-img">
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">130</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ATK</div>
+                            <div class="stat-value">110</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">DEF</div>
+                            <div class="stat-value">120</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="pokemon-number">#700</span>
+                        <span class="rarity">★★★</span>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <div class="card-back-logo">💫</div>
+                        <div class="card-back-text">Sylveon</div>
+                        <div class="card-back-text">El Pokémon Encanto</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© Pokémon City - Terastal Fest EX SAR Collection</p>
+        <p>Colección oficial de cartas TCG Eeveevolutions en formato Japonés</p>
+        <p>Haz clic en cualquier carta para girarla 💳✨</p>
+    </div>
+</body>
+</html>
