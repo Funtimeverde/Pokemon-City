@@ -9,6 +9,7 @@ const pokemonCards = [
         typeEn: "Normal",
         typeEs: "Normal",
         typeJa: "ノーマル",
+        typeCode: "normal",
         hp: 150,
         attack: 130,
         defense: 120,
@@ -24,6 +25,7 @@ const pokemonCards = [
         typeEn: "Water",
         typeEs: "Agua",
         typeJa: "みず",
+        typeCode: "water",
         hp: 180,
         attack: 145,
         defense: 160,
@@ -39,6 +41,7 @@ const pokemonCards = [
         typeEn: "Electric",
         typeEs: "Eléctrico",
         typeJa: "でんき",
+        typeCode: "electric",
         hp: 170,
         attack: 190,
         defense: 140,
@@ -54,6 +57,7 @@ const pokemonCards = [
         typeEn: "Fire",
         typeEs: "Fuego",
         typeJa: "ほのお",
+        typeCode: "fire",
         hp: 175,
         attack: 190,
         defense: 140,
@@ -69,6 +73,7 @@ const pokemonCards = [
         typeEn: "Psychic",
         typeEs: "Psíquico",
         typeJa: "エスパー",
+        typeCode: "psychic",
         hp: 185,
         attack: 160,
         defense: 175,
@@ -84,6 +89,7 @@ const pokemonCards = [
         typeEn: "Dark",
         typeEs: "Oscuro",
         typeJa: "あく",
+        typeCode: "dark",
         hp: 190,
         attack: 155,
         defense: 190,
@@ -99,6 +105,7 @@ const pokemonCards = [
         typeEn: "Ice",
         typeEs: "Hielo",
         typeJa: "こおり",
+        typeCode: "ice",
         hp: 175,
         attack: 170,
         defense: 165,
@@ -114,6 +121,7 @@ const pokemonCards = [
         typeEn: "Grass",
         typeEs: "Planta",
         typeJa: "くさ",
+        typeCode: "grass",
         hp: 180,
         attack: 175,
         defense: 165,
@@ -129,6 +137,7 @@ const pokemonCards = [
         typeEn: "Fairy",
         typeEs: "Hada",
         typeJa: "フェアリー",
+        typeCode: "fairy",
         hp: 190,
         attack: 160,
         defense: 170,
@@ -139,6 +148,7 @@ const pokemonCards = [
 
 // Variable global para idioma actual
 let currentLanguage = 'ja'; // 'ja' (Japonés), 'en' (Inglés), 'es' (Español)
+let showFanNames = false; // Variable para control de fan-names
 
 // Función para obtener la URL de imagen de PokeAPI
 function getPokemonImageUrl(number) {
@@ -195,11 +205,12 @@ function createCard(pokemon, lang) {
     const labels = getLabels(lang);
     const name = getNameByLanguage(pokemon, lang);
     const type = getTypeByLanguage(pokemon, lang);
+    const fanNameClass = showFanNames ? '' : 'hidden';
     
     return `
         <div class="tcg-card">
             <div class="card-inner">
-                <div class="card-front">
+                <div class="card-front type-${pokemon.typeCode}">
                     <div class="terastal-badge">テラスタル</div>
                     <div class="sar-badge">SAR EX</div>
                     <div class="ex-badge">EX</div>
@@ -207,7 +218,7 @@ function createCard(pokemon, lang) {
                         <div class="pokemon-name">${name}</div>
                         <div class="card-type">${type}</div>
                     </div>
-                    <div class="fan-name-section">
+                    <div class="fan-name-section ${fanNameClass}">
                         <span class="fan-name-label">${labels.fanName}:</span>
                         <span class="fan-name-value">${pokemon.fanName}</span>
                     </div>
@@ -259,6 +270,19 @@ function changeLanguage(lang) {
     document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
 }
 
+// Función para toggle de fan-names
+function toggleFanNames(checkbox) {
+    showFanNames = checkbox.checked;
+    const fanNameSections = document.querySelectorAll('.fan-name-section');
+    fanNameSections.forEach(section => {
+        if (showFanNames) {
+            section.classList.remove('hidden');
+        } else {
+            section.classList.add('hidden');
+        }
+    });
+}
+
 // Función para agregar listeners de flip
 function attachFlipListeners() {
     const cards = document.querySelectorAll('.tcg-card');
@@ -281,4 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Marcar botón de idioma activo
     document.querySelector('[data-lang="ja"]').classList.add('active');
+    
+    // Inicializar checkbox
+    document.getElementById('fanNameToggle').checked = false;
 });
