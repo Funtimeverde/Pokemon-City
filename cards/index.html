@@ -11,10 +11,17 @@
         <h1>✨ イーブイ進化系 TCG ✨</h1>
         <p>テラスタルフェスト EX SAR コレクション - ポケモン シティ</p>
         
-        <div class="language-selector">
-            <button class="language-btn" data-lang="ja" onclick="changeLanguage('ja')">🇯🇵 日本語</button>
-            <button class="language-btn" data-lang="en" onclick="changeLanguage('en')">🇺🇸 English</button>
-            <button class="language-btn" data-lang="es" onclick="changeLanguage('es')">🇪🇸 Español</button>
+        <div class="controls">
+            <div class="language-selector">
+                <button class="language-btn" data-lang="ja" onclick="changeLanguage('ja')">🇯🇵 日本語</button>
+                <button class="language-btn" data-lang="en" onclick="changeLanguage('en')">🇺🇸 English</button>
+                <button class="language-btn" data-lang="es" onclick="changeLanguage('es')">🇪🇸 Español</button>
+            </div>
+            
+            <div class="fan-name-toggle">
+                <input type="checkbox" id="fanNameToggle" onchange="toggleFanNames()">
+                <label for="fanNameToggle">Show Fan Names</label>
+            </div>
         </div>
     </div>
 
