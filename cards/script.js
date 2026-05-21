@@ -4,7 +4,7 @@ const pokemonCards = [
         nameJa: "イーブイ",
         nameEn: "Eevee",
         nameEs: "Eevee",
-        fanName: "Lechuga EX",
+        fanName: "Evoi EX",
         type: "ノーマル",
         typeEn: "Normal",
         typeEs: "Normal",
