@@ -132,7 +132,7 @@ const pokemonCards = [
         nameJa: "ニンフィア",
         nameEn: "Sylveon",
         nameEs: "Sylveon",
-        fanName: "La Femboy EX",
+        fanName: "Lazos EX",
         type: "フェアリー",
         typeEn: "Fairy",
         typeEs: "Hada",
