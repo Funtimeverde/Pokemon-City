@@ -36,7 +36,7 @@ const pokemonCards = [
         nameJa: "サンダース",
         nameEn: "Jolteon",
         nameEs: "Jolteon",
-        fanName: "Enchufe",
+        fanName: "Bobolteon",
         type: "でんき",
         typeEn: "Electric",
         typeEs: "Eléctrico",
