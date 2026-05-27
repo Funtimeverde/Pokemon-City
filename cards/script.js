@@ -211,9 +211,6 @@ function createCard(pokemon, lang) {
         <div class="tcg-card">
             <div class="card-inner">
                 <div class="card-front type-${pokemon.typeCode}">
-                    <div class="terastal-badge">テラスタル</div>
-                    <div class="sar-badge">SAR EX</div>
-                    <div class="ex-badge">EX</div>
                     <div class="card-header">
                         <div class="pokemon-name">${name}</div>
                         <div class="card-type">${type}</div>
