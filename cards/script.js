@@ -241,7 +241,6 @@ function createCard(pokemon, lang) {
                     </div>
                     <div class="card-footer">
                         <span class="pokemon-number">${labels.number} ${pokemon.number}</span>
-                        <span class="rarity">SAR</span>
                     </div>
                 </div>
                 <div class="card-back">
