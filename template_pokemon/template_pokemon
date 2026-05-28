@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Pokémon</title>
+
+    <style>
+        /* 1. Definición de variables CSS en el :root */
+        :root {
+            --color-primario: #ef5350; /* Rojo característico de la Pokébola */
+            --color-secundario: #3b4cca; /* Azul Pokémon */
+            --color-fondo: #f6f6f6;
+            --color-texto: #333333;
+        }
+
+        /* 2. Reset universal con Box-Sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            display: grid;
+            grid-template-columns: 1fr 300px; /* Estructura para el contenido y el aside */
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Contenedor principal */
+        main {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 3. Implementación de Posicionamiento (Relative y Absolute) */
+        /* Contenedor Padre */
+        .tarjeta-pokemon {
+            position: relative; /* Define el eje de coordenadas para los hijos absolutos */
+            width: 250px;
+            height: 300px;
+            border: 2px solid var(--color-primario);
+            border-radius: 12px;
+            padding: 15px;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        /* Contenedor Hijo */
+        .badge-tipo {
+            position: absolute; /* Se posiciona respecto a .tarjeta-pokemon */
+            top: 10px;
+            right: 10px;
+            background-color: var(--color-primario);
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        /* 4. Implementación de Posicionamiento Sticky */
+        aside {
+            position: -webkit-sticky; /* Soporte para navegadores Safari */
+            position: sticky;        /* Se vuelve fijo al hacer scroll */
+            top: 20px;               /* Distancia desde el tope de la pantalla donde se activará */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            height: fit-content;     /* Se ajusta a su contenido */
+            border-top: 5px solid var(--color-secundario);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: var(--color-primario);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <h1>Gotta Catch 'Em All!</h1>
+        <p>Bienvenido al template de Pokémon. Desplaza la página hacia abajo para ver el comportamiento del menú lateral (aside).</p>
+
+        <div class="tarjeta-pokemon">
+            <span class="badge-tipo">Fuego</span>
+            
+            <h2>Charmander</h2>
+            <p>Contenido de la tarjeta del Pokémon...</p>
+        </div>
+
+        <div style="margin-top: 400px;">
+            <h2>Sección Secundaria</h2>
+            <p>Al hacer scroll hacia abajo, notarás cómo el bloque lateral gris (aside) se queda clavado en la parte superior de la pantalla de forma fluida.</p>
+        </div>
+        <div style="margin-top: 400px;">
+            <h2>Fin de la Página</h2>
+        </div>
+    </main>
+
+    <aside>
+        <h2>Filtros / Info</h2>
+        <p>Este es el bloque lateral con posicionamiento <strong>sticky</strong>. Se mantendrá visible mientras navegas por el contenido principal.</p>
+    </aside>
+
+</body>
+</html>
