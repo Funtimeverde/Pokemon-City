@@ -1,4 +1,11 @@
+// Últimas actualizaciones:
+// - Toggle de fan names con animación de deslizamiento y opacidad.
+// - Badge de tipo con fondo negro translúcido y texto blanco legible.
+// - Multilenguaje: japonés, inglés y español.
+// - Estructura lista para añadir nuevos Pokémon a tu ritmo.
 // Array de datos de Eeveevolutions Teracristal EX con Fan-Names
+// Agrega más Pokémon copiando uno de los objetos y cambiando:
+// nameJa, nameEn, nameEs, fanName, typeJa, typeEn, typeEs, typeCode, hp, attack, defense, number, emoji
 const pokemonCards = [
     {
         nameJa: 'イーブイ',
@@ -145,6 +152,23 @@ const pokemonCards = [
         number: 700,
         emoji: '💫'
     }
+    // Ejemplo de nuevo Pokémon:
+    // {
+    //     nameJa: 'ピカチュウ',
+    //     nameEn: 'Pikachu',
+    //     nameEs: 'Pikachu',
+    //     fanName: 'Pika',
+    //     type: 'でんき',
+    //     typeEn: 'Electric',
+    //     typeEs: 'Eléctrico',
+    //     typeJa: 'でんき',
+    //     typeCode: 'electric',
+    //     hp: 120,
+    //     attack: 110,
+    //     defense: 70,
+    //     number: 25,
+    //     emoji: '⚡'
+    // }
 ];
 
 let currentLanguage = 'ja';
@@ -232,7 +256,7 @@ function createCard(pokemon, lang) {
                 <div class="${cardClasses}">
                     <div class="card-header">
                         <div class="pokemon-name">${name}</div>
-                        <div class="card-type type-${pokemon.typeCode}">${type}</div>
+                        <div class="card-type">${type}</div>
                     </div>
                     <div class="fan-name-section ${fanNameClass}">
                         <span class="fan-name-label">${labels.fanName}:</span>
@@ -290,6 +314,10 @@ function changeLanguage(lang) {
     });
 }
 
+// toggleFanNames: activa o desactiva la sección de nombres de fan en cada carta.
+// Cuando el usuario cambia el checkbox, se actualiza `showFanNames` y se agrega/quita
+// la clase `hidden` en cada sección `fan-name-section`.
+// El estilo CSS asociado define la animación de desplazamiento, opacidad y altura.
 function toggleFanNames(checkbox) {
     showFanNames = checkbox.checked;
     document.querySelectorAll('.fan-name-section').forEach((section) => {
