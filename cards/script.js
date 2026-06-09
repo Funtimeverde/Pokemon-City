@@ -147,7 +147,7 @@ const pokemonCards = [
     }
 ];
 
-let currentLanguage = 'es';
+let currentLanguage = 'ja';
 let showFanNames = false;
 
 function getPokemonImageUrl(number) {
@@ -165,7 +165,8 @@ function getLabels(lang) {
             title: '✨ ポケモン TCG イーブイ進化系 ✨',
             subtitle: 'イーブイ進化系のインタラクティブカード',
             toggle: 'ファンネームを表示',
-            footer: '© ポケモンシティ - イーブイ進化系 TCG'
+            footer: '© ポケモンシティ - イーブイ進化系 TCG',
+            pageTitle: 'ポケモン TCG イーブイ進化系'
         },
         en: {
             hp: 'HP',
@@ -176,7 +177,8 @@ function getLabels(lang) {
             title: '✨ Pokémon TCG Eeveelutions ✨',
             subtitle: 'Interactive Eeveelutions cards',
             toggle: 'Show fan names',
-            footer: '© Pokémon City - Eeveelutions TCG'
+            footer: '© Pokémon City - Eeveelutions TCG',
+            pageTitle: 'Pokémon TCG Eeveelutions'
         },
         es: {
             hp: 'PV',
@@ -187,10 +189,22 @@ function getLabels(lang) {
             title: '✨ Pokémon TCG Eeveelutions ✨',
             subtitle: 'Cartas interactivas de Eeveelutions',
             toggle: 'Mostrar fan names',
-            footer: '© Pokémon City - Eeveelutions TCG'
+            footer: '© Pokémon City - Eeveelutions TCG',
+            pageTitle: 'Pokémon TCG Eeveelutions'
         }
     };
     return labels[lang] || labels.es;
+}
+
+function translatePageText(labels) {
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+        const key = element.getAttribute('data-i18n');
+        if (!key) return;
+        const value = labels[key];
+        if (typeof value === 'string') {
+            element.textContent = value;
+        }
+    });
 }
 
 function getNameByLanguage(pokemon, lang) {
@@ -213,7 +227,7 @@ function createCard(pokemon, lang) {
     const cardClasses = ['card-front', `type-${pokemon.typeCode}`, pokemon.specialClass].filter(Boolean).join(' ');
 
     return `
-        <div class="tcg-card">
+        <div class="tcg-card" role="button" tabindex="0" aria-label="${name} card">
             <div class="card-inner">
                 <div class="${cardClasses}">
                     <div class="card-header">
@@ -262,15 +276,8 @@ function changeLanguage(lang) {
     document.documentElement.lang = lang;
 
     const labels = getLabels(lang);
-    const heading = document.querySelector('.header h1');
-    const subtitle = document.querySelector('.header p');
-    const toggleLabel = document.querySelector('.toggle span');
-    const footerText = document.querySelector('.footer p');
-
-    if (heading) heading.textContent = labels.title;
-    if (subtitle) subtitle.textContent = labels.subtitle;
-    if (toggleLabel) toggleLabel.textContent = labels.toggle;
-    if (footerText) footerText.textContent = labels.footer;
+    translatePageText(labels);
+    document.title = labels.pageTitle || labels.title;
 
     const container = document.getElementById('cardsContainer');
     if (container) {
@@ -292,11 +299,19 @@ function toggleFanNames(checkbox) {
 
 function attachFlipListeners() {
     document.querySelectorAll('.tcg-card').forEach((card) => {
-        card.addEventListener('click', function () {
-            const cardInner = this.querySelector('.card-inner');
+        const flipCard = () => {
+            const cardInner = card.querySelector('.card-inner');
             if (!cardInner) return;
             cardInner.style.transform =
                 cardInner.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        };
+
+        card.addEventListener('click', flipCard);
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                flipCard();
+            }
         });
     });
 }
