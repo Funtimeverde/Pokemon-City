@@ -262,14 +262,21 @@ function changeLanguage(lang) {
     document.documentElement.lang = lang;
 
     const labels = getLabels(lang);
-    document.querySelector('.header h1').textContent = labels.title;
-    document.querySelector('.header p').textContent = labels.subtitle;
-    document.querySelector('.toggle span').textContent = labels.toggle;
-    document.querySelector('.footer p').textContent = labels.footer;
+    const heading = document.querySelector('.header h1');
+    const subtitle = document.querySelector('.header p');
+    const toggleLabel = document.querySelector('.toggle span');
+    const footerText = document.querySelector('.footer p');
+
+    if (heading) heading.textContent = labels.title;
+    if (subtitle) subtitle.textContent = labels.subtitle;
+    if (toggleLabel) toggleLabel.textContent = labels.toggle;
+    if (footerText) footerText.textContent = labels.footer;
 
     const container = document.getElementById('cardsContainer');
-    container.innerHTML = pokemonCards.map((pokemon) => createCard(pokemon, lang)).join('');
-    attachFlipListeners();
+    if (container) {
+        container.innerHTML = pokemonCards.map((pokemon) => createCard(pokemon, lang)).join('');
+        attachFlipListeners();
+    }
 
     document.querySelectorAll('.language-btn').forEach((btn) => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
@@ -287,6 +294,7 @@ function attachFlipListeners() {
     document.querySelectorAll('.tcg-card').forEach((card) => {
         card.addEventListener('click', function () {
             const cardInner = this.querySelector('.card-inner');
+            if (!cardInner) return;
             cardInner.style.transform =
                 cardInner.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
@@ -295,12 +303,16 @@ function attachFlipListeners() {
 
 document.addEventListener('DOMContentLoaded', function () {
     const fanNameToggle = document.getElementById('fanNameToggle');
+    const languageButtons = document.querySelectorAll('.language-btn');
 
-    document.querySelectorAll('.language-btn').forEach((btn) => {
+    languageButtons.forEach((btn) => {
         btn.addEventListener('click', () => changeLanguage(btn.dataset.lang));
     });
 
-    fanNameToggle.addEventListener('change', () => toggleFanNames(fanNameToggle));
+    if (fanNameToggle) {
+        fanNameToggle.addEventListener('change', () => toggleFanNames(fanNameToggle));
+        fanNameToggle.checked = false;
+    }
+
     changeLanguage(currentLanguage);
-    fanNameToggle.checked = false;
 });

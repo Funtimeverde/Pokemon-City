@@ -12,15 +12,15 @@
         <p>テラスタルフェスト EX SAR コレクション - ポケモン シティ</p>
         
         <div class="controls">
-            <div class="language-selector">
-                <button class="language-btn" data-lang="ja" onclick="changeLanguage('ja')">🇯🇵 日本語</button>
-                <button class="language-btn" data-lang="en" onclick="changeLanguage('en')">🇺🇸 English</button>
-                <button class="language-btn" data-lang="es" onclick="changeLanguage('es')">🇪🇸 Español</button>
+            <div class="language-switch">
+                <button class="language-btn" data-lang="ja">🇯🇵 日本語</button>
+                <button class="language-btn" data-lang="en">🇺🇸 English</button>
+                <button class="language-btn" data-lang="es">🇪🇸 Español</button>
             </div>
-            <div class="fan-name-toggle">
-                <input type="checkbox" id="fanNameToggle" onchange="toggleFanNames(this)">
-                <label for="fanNameToggle">Show Fan Names</label>
-            </div>
+            <label class="toggle">
+                <input type="checkbox" id="fanNameToggle">
+                <span>Show Fan Names</span>
+            </label>
         </div>
     </div>
 
