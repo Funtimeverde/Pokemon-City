@@ -373,15 +373,23 @@ function attachFlipListeners() {
 document.addEventListener('DOMContentLoaded', function () {
     const fanNameToggle = document.getElementById('fanNameToggle');
     const languageButtons = document.querySelectorAll('.language-btn');
+    const themeToggle = document.getElementById('themeToggle');
 
     languageButtons.forEach((btn) => {
         btn.addEventListener('click', () => changeLanguage(btn.dataset.lang));
     });
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+    }
 
     if (fanNameToggle) {
         fanNameToggle.addEventListener('change', () => toggleFanNames(fanNameToggle));
         fanNameToggle.checked = false;
     }
 
+    setTheme(currentTheme);
     changeLanguage(currentLanguage);
 });
