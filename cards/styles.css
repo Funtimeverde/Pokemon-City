@@ -177,6 +177,48 @@ body[data-theme="dark"]::after {
     color: var(--page-text);
 }
 
+.theme-toggle-floating {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--control-bg);
+    border: 2.5px solid var(--control-border);
+    color: var(--page-text);
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease, transform 0.2s ease;
+    z-index: 999;
+}
+
+.theme-toggle-floating:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    background: var(--control-hover);
+}
+
+.theme-toggle-floating:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 640px) {
+    .theme-toggle-floating {
+        bottom: 24px;
+        left: 24px;
+        width: 56px;
+        height: 56px;
+        font-size: 1.6rem;
+    }
+}
+
 .toggle input {
     width: 1rem;
     height: 1rem;

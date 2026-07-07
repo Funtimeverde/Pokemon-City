@@ -331,9 +331,7 @@ function setTheme(theme) {
     if (themeToggle) {
         themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
         const icon = themeToggle.querySelector('.theme-toggle-icon');
-        const text = themeToggle.querySelector('.theme-toggle-text');
-        if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-        if (text) text.textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
+        if (icon) icon.textContent = theme === 'dark' ? '🌙' : '✨';
     }
 
     localStorage.setItem(STORAGE_KEY, theme);
@@ -382,6 +380,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+        themeToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            }
         });
     }
 
