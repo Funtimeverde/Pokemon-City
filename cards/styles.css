@@ -6,19 +6,80 @@
 
 :root {
     font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    color-scheme: dark;
+    color-scheme: light;
+    --page-bg: linear-gradient(135deg, #6f84ff 0%, #8b5cf6 100%);
+    --page-text: #ffffff;
+    --page-muted: rgba(255, 255, 255, 0.8);
+    --control-bg: rgba(255, 255, 255, 0.14);
+    --control-border: rgba(255, 255, 255, 0.85);
+    --control-hover: rgba(255, 255, 255, 0.24);
+    --shadow-color: rgba(0, 0, 0, 0.16);
 }
 
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--page-bg);
     min-height: 100vh;
     padding: 30px 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: var(--page-text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background 0.6s ease, color 0.6s ease;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(70px);
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0);
+    animation: floatBackground 14s ease-in-out infinite alternate;
+}
+
+body::before {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 65%);
+}
+
+body::after {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+    animation-duration: 18s;
+    opacity: 0.42;
+}
+
+@keyframes floatBackground {
+    from {
+        transform: translate3d(-4%, -3%, 0) scale(1);
+    }
+    to {
+        transform: translate3d(4%, 3%, 0) scale(1.05);
+    }
+}
+
+body[data-theme="dark"] {
+    --page-bg: linear-gradient(135deg, #050505 0%, #161616 42%, #2c2c2c 100%);
+    --page-text: #f5f5f5;
+    --page-muted: rgba(255, 255, 255, 0.7);
+    --control-bg: rgba(255, 255, 255, 0.1);
+    --control-border: rgba(255, 255, 255, 0.25);
+    --control-hover: rgba(255, 255, 255, 0.18);
+    --shadow-color: rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
+}
+
+body[data-theme="dark"]::before {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 65%);
+}
+
+body[data-theme="dark"]::after {
+    background: radial-gradient(circle, rgba(180, 180, 180, 0.12) 0%, rgba(180, 180, 180, 0) 70%);
 }
 
 .header {
@@ -56,14 +117,16 @@ body {
 }
 
 .language-btn,
+.theme-toggle,
 .toggle input + span {
     transition: all 0.2s ease;
 }
 
-.language-btn {
-    border: 1.8px solid rgba(255, 255, 255, 0.85);
-    background: rgba(255, 255, 255, 0.12);
-    color: white;
+.language-btn,
+.theme-toggle {
+    border: 1.8px solid var(--control-border);
+    background: var(--control-bg);
+    color: var(--page-text);
     padding: 12px 24px;
     border-radius: 999px;
     cursor: pointer;
@@ -72,6 +135,21 @@ body {
     text-align: center;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 136px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.language-btn:hover,
+.theme-toggle:hover {
+    background: var(--control-hover);
+    transform: translateY(-1px);
 }
 
 .language-btn:focus-visible,
@@ -86,10 +164,6 @@ body {
     touch-action: manipulation;
 }
 
-.language-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-}
-
 .language-btn.active {
     background: white;
     color: #222;
@@ -100,7 +174,7 @@ body {
 .toggle {
     align-items: center;
     font-size: 0.95rem;
-    color: white;
+    color: var(--page-text);
 }
 
 .toggle input {
@@ -150,54 +224,102 @@ body {
     background: #dbdbdb;
     border: 2px solid rgba(255, 255, 255, 0.45);
     color: white;
+    transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
 }
 
 .card-front.type-water {
-    background: #74c7f7;
+    background: linear-gradient(135deg, #9ddcff 0%, #3c7fa1 100%);
     border-color: rgba(70, 152, 214, 0.85);
     color: #1f2e45;
 }
 
 .card-front.type-electric {
-    background: #fdee63;
+    background: linear-gradient(135deg, #fef08a 0%, #b88600 100%);
     border-color: rgba(223, 170, 0, 0.82);
     color: #372d0a;
 }
 
 .card-front.type-fire {
-    background: #ff9d42;
+    background: linear-gradient(135deg, #ffb36b 0%, #b84a00 100%);
     border-color: rgba(238, 113, 13, 0.9);
     color: #2d1500;
 }
 
 .card-front.type-psychic {
-    background: #d88dff;
+    background: linear-gradient(135deg, #e6b7ff 0%, #7a2d8f 100%);
     border-color: rgba(147, 39, 177, 0.9);
     color: #2f0a3d;
 }
 
 .card-front.type-dark {
-    background: #616161;
+    background: linear-gradient(135deg, #8c8c8c 0%, #2e2e2e 100%);
     border-color: rgba(45, 45, 45, 0.9);
     color: white;
 }
 
 .card-front.type-ice {
-    background: #b7ecff;
+    background: linear-gradient(135deg, #d9f7ff 0%, #3d89a7 100%);
     border-color: rgba(0, 131, 194, 0.9);
     color: #0f364f;
 }
 
 .card-front.type-grass {
-    background: #b6f09d;
+    background: linear-gradient(135deg, #caf8a8 0%, #4b7c2c 100%);
     border-color: rgba(62, 118, 37, 0.9);
     color: #1e3d10;
 }
 
 .card-front.type-fairy {
-    background: #ffbaf0;
+    background: linear-gradient(135deg, #ffd2f3 0%, #a43f86 100%);
     border-color: rgba(186, 45, 143, 0.85);
     color: #38103a;
+}
+
+body[data-theme="dark"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(18, 18, 18, 0.82) 100%);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: #f3f3f3;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+body[data-theme="dark"] .card-front.type-water {
+    background: linear-gradient(135deg, #4d6570 0%, #09131a 100%);
+    color: #f3f8ff;
+}
+
+body[data-theme="dark"] .card-front.type-electric {
+    background: linear-gradient(135deg, #5a5232 0%, #161100 100%);
+    color: #fff5b6;
+}
+
+body[data-theme="dark"] .card-front.type-fire {
+    background: linear-gradient(135deg, #6f3f22 0%, #140600 100%);
+    color: #ffd7b3;
+}
+
+body[data-theme="dark"] .card-front.type-psychic {
+    background: linear-gradient(135deg, #5e4167 0%, #14051d 100%);
+    color: #f6ddff;
+}
+
+body[data-theme="dark"] .card-front.type-dark {
+    background: linear-gradient(135deg, #4c4c4c 0%, #090909 100%);
+    color: #f5f5f5;
+}
+
+body[data-theme="dark"] .card-front.type-ice {
+    background: linear-gradient(135deg, #4c5d66 0%, #08171d 100%);
+    color: #e9f9ff;
+}
+
+body[data-theme="dark"] .card-front.type-grass {
+    background: linear-gradient(135deg, #4b5d3f 0%, #091107 100%);
+    color: #e8f9d9;
+}
+
+body[data-theme="dark"] .card-front.type-fairy {
+    background: linear-gradient(135deg, #61415e 0%, #14040c 100%);
+    color: #ffe4f4;
 }
 
 .card-front.teracristal {
@@ -262,6 +384,11 @@ body {
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.16));
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+body[data-theme="dark"] .pokemon-img {
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.34)) saturate(1.12);
 }
 
 .card-stats {
@@ -376,7 +503,7 @@ body {
 
 .footer {
     margin-top: 40px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--page-muted);
     text-align: center;
     font-size: 0.95rem;
     width: min(900px, 100%);

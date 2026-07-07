@@ -173,9 +173,12 @@ const pokemonCards = [
 
 let currentLanguage = 'ja';
 let showFanNames = false;
+let currentTheme = localStorage.getItem('eeveelutions-theme') || 'light';
+const STORAGE_KEY = 'eeveelutions-theme';
 
-function getPokemonImageUrl(number) {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${number}.png`;
+function getPokemonImageUrl(number, theme = 'light') {
+    const variant = theme === 'dark' ? 'shiny' : 'official-artwork';
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/${variant}/${number}.png`;
 }
 
 function getLabels(lang) {
@@ -249,6 +252,7 @@ function createCard(pokemon, lang) {
     const type = getTypeByLanguage(pokemon, lang);
     const fanNameClass = showFanNames ? '' : 'hidden';
     const cardClasses = ['card-front', `type-${pokemon.typeCode}`, pokemon.specialClass].filter(Boolean).join(' ');
+    const imageUrl = getPokemonImageUrl(pokemon.number, currentTheme);
 
     return `
         <div class="tcg-card" role="button" tabindex="0" aria-label="${name} card">
@@ -263,7 +267,7 @@ function createCard(pokemon, lang) {
                         <span class="fan-name-value">${pokemon.fanName}</span>
                     </div>
                     <div class="card-image">
-                        <img src="${getPokemonImageUrl(pokemon.number)}" alt="${pokemon.nameEn}" class="pokemon-img">
+                        <img src="${imageUrl}" alt="${pokemon.nameEn}" class="pokemon-img">
                     </div>
                     <div class="card-stats">
                         <div class="stat">
@@ -295,6 +299,14 @@ function createCard(pokemon, lang) {
     `;
 }
 
+function renderCards() {
+    const container = document.getElementById('cardsContainer');
+    if (!container) return;
+
+    container.innerHTML = pokemonCards.map((pokemon) => createCard(pokemon, currentLanguage)).join('');
+    attachFlipListeners();
+}
+
 function changeLanguage(lang) {
     currentLanguage = lang;
     document.documentElement.lang = lang;
@@ -303,15 +315,29 @@ function changeLanguage(lang) {
     translatePageText(labels);
     document.title = labels.pageTitle || labels.title;
 
-    const container = document.getElementById('cardsContainer');
-    if (container) {
-        container.innerHTML = pokemonCards.map((pokemon) => createCard(pokemon, lang)).join('');
-        attachFlipListeners();
-    }
+    renderCards();
 
     document.querySelectorAll('.language-btn').forEach((btn) => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+}
+
+function setTheme(theme) {
+    currentTheme = theme;
+    document.body.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+        const icon = themeToggle.querySelector('.theme-toggle-icon');
+        const text = themeToggle.querySelector('.theme-toggle-text');
+        if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        if (text) text.textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
+    }
+
+    localStorage.setItem(STORAGE_KEY, theme);
+    renderCards();
 }
 
 // toggleFanNames: activa o desactiva la sección de nombres de fan en cada carta.
