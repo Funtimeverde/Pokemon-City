@@ -2,6 +2,7 @@
 // - Toggle de fan names con animación de deslizamiento y opacidad.
 // - Badge de tipo con fondo negro translúcido y texto blanco legible.
 // - Multilenguaje: japonés, inglés y español.
+// - NEW Multilenguaje: korean
 // - Estructura lista para añadir nuevos Pokémon a tu ritmo.
 // Array de datos de Eeveevolutions Teracristal EX con Fan-Names
 // Agrega más Pokémon copiando uno de los objetos y cambiando:
