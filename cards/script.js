@@ -1,20 +1,22 @@
 // Últimas actualizaciones:
 // - Toggle de fan names con animación de deslizamiento y opacidad.
 // - Badge de tipo con fondo negro translúcido y texto blanco legible.
-// - Multilenguaje: japonés, inglés y español.
+// - Multilenguaje: japonés, inglés, español y coreano.
 // - Estructura lista para añadir nuevos Pokémon a tu ritmo.
 // Array de datos de Eeveevolutions Teracristal EX con Fan-Names
 // Agrega más Pokémon copiando uno de los objetos y cambiando:
-// nameJa, nameEn, nameEs, fanName, typeJa, typeEn, typeEs, typeCode, hp, attack, defense, number, emoji
+// nameJa, nameEn, nameEs, nameKo, fanName, typeJa, typeEn, typeEs, typeKo, typeCode, hp, attack, defense, number, emoji
 const pokemonCards = [
     {
         nameJa: 'イーブイ',
         nameEn: 'Eevee',
         nameEs: 'Eevee',
+        nameKo: '이브이',
         fanName: 'Eboi',
         type: 'ノーマル',
         typeEn: 'Normal',
         typeEs: 'Normal',
+        typeKo: '노말',
         typeJa: 'ノーマル',
         typeCode: 'normal',
         specialClass: 'teracristal',
@@ -28,10 +30,12 @@ const pokemonCards = [
         nameJa: 'シャワーズ',
         nameEn: 'Vaporeon',
         nameEs: 'Vaporeon',
+        nameKo: '샤미드',
         fanName: 'Vapy',
         type: 'みず',
         typeEn: 'Water',
         typeEs: 'Agua',
+        typeKo: '물',
         typeJa: 'みず',
         typeCode: 'water',
         hp: 180,
@@ -44,10 +48,12 @@ const pokemonCards = [
         nameJa: 'サンダース',
         nameEn: 'Jolteon',
         nameEs: 'Jolteon',
+        nameKo: '쥬피썬',
         fanName: 'Bobolteon',
         type: 'でんき',
         typeEn: 'Electric',
         typeEs: 'Eléctrico',
+        typeKo: '전기',
         typeJa: 'でんき',
         typeCode: 'electric',
         hp: 170,
@@ -60,10 +66,12 @@ const pokemonCards = [
         nameJa: 'ブースター',
         nameEn: 'Flareon',
         nameEs: 'Flareon',
+        nameKo: '부스터',
         fanName: 'Flary',
         type: 'ほのお',
         typeEn: 'Fire',
         typeEs: 'Fuego',
+        typeKo: '불',
         typeJa: 'ほのお',
         typeCode: 'fire',
         hp: 175,
@@ -76,10 +84,12 @@ const pokemonCards = [
         nameJa: 'エーフィ',
         nameEn: 'Espeon',
         nameEs: 'Espeon',
+        nameKo: '에스퍼',
         fanName: 'Espy',
         type: 'エスパー',
         typeEn: 'Psychic',
         typeEs: 'Psíquico',
+        typeKo: '에스퍼',
         typeJa: 'エスパー',
         typeCode: 'psychic',
         hp: 185,
@@ -92,10 +102,12 @@ const pokemonCards = [
         nameJa: 'ブラッキー',
         nameEn: 'Umbreon',
         nameEs: 'Umbreon',
+        nameKo: '블래키',
         fanName: 'Umbre',
         type: 'あく',
         typeEn: 'Dark',
         typeEs: 'Oscuro',
+        typeKo: '악',
         typeJa: 'あく',
         typeCode: 'dark',
         hp: 190,
@@ -108,10 +120,12 @@ const pokemonCards = [
         nameJa: 'グレイシア',
         nameEn: 'Glaceon',
         nameEs: 'Glaceon',
+        nameKo: '글레이시아',
         fanName: 'La Hielo',
         type: 'こおり',
         typeEn: 'Ice',
         typeEs: 'Hielo',
+        typeKo: '얼음',
         typeJa: 'こおり',
         typeCode: 'ice',
         hp: 175,
@@ -124,10 +138,12 @@ const pokemonCards = [
         nameJa: 'リーフィア',
         nameEn: 'Leafeon',
         nameEs: 'Leafeon',
+        nameKo: '리피아',
         fanName: 'Lechuga',
         type: 'くさ',
         typeEn: 'Grass',
         typeEs: 'Planta',
+        typeKo: '풀',
         typeJa: 'くさ',
         typeCode: 'grass',
         hp: 180,
@@ -140,10 +156,12 @@ const pokemonCards = [
         nameJa: 'ニンフィア',
         nameEn: 'Sylveon',
         nameEs: 'Sylveon',
+        nameKo: '니인피아',
         fanName: 'Lazos',
         type: 'フェアリー',
         typeEn: 'Fairy',
         typeEs: 'Hada',
+        typeKo: '페어리',
         typeJa: 'フェアリー',
         typeCode: 'fairy',
         hp: 190,
@@ -157,10 +175,12 @@ const pokemonCards = [
     //     nameJa: 'ピカチュウ',
     //     nameEn: 'Pikachu',
     //     nameEs: 'Pikachu',
+    //     nameKo: '피카츄',
     //     fanName: 'Pika',
     //     type: 'でんき',
     //     typeEn: 'Electric',
     //     typeEs: 'Eléctrico',
+    //     typeKo: '전기',
     //     typeJa: 'でんき',
     //     typeCode: 'electric',
     //     hp: 120,
@@ -218,6 +238,18 @@ function getLabels(lang) {
             toggle: 'Mostrar fan names',
             footer: '© Pokémon City - Eeveelutions TCG',
             pageTitle: 'Pokémon TCG Eeveelutions'
+        },
+        ko: {
+            hp: 'HP',
+            attack: '공격',
+            defense: '방어',
+            number: 'No.',
+            fanName: '팬 네임',
+            title: '✨ 포켓몬 TCG 이브이 진화군 ✨',
+            subtitle: '인터랙티브한 이브이 진화 카드',
+            toggle: '팬 네임 표시',
+            footer: '© 포켓몬 시티 - 이브이 진화 TCG',
+            pageTitle: '포켓몬 TCG 이브이 진화군'
         }
     };
     return labels[lang] || labels.es;
@@ -237,12 +269,14 @@ function translatePageText(labels) {
 function getNameByLanguage(pokemon, lang) {
     if (lang === 'ja') return pokemon.nameJa;
     if (lang === 'en') return pokemon.nameEn;
+    if (lang === 'ko') return pokemon.nameKo || pokemon.nameEn;
     return pokemon.nameEs;
 }
 
 function getTypeByLanguage(pokemon, lang) {
     if (lang === 'ja') return pokemon.typeJa;
     if (lang === 'en') return pokemon.typeEn;
+    if (lang === 'ko') return pokemon.typeKo || pokemon.typeEn;
     return pokemon.typeEs;
 }
 
@@ -331,7 +365,7 @@ function setTheme(theme) {
     if (themeToggle) {
         themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
         const icon = themeToggle.querySelector('.theme-toggle-icon');
-        if (icon) icon.textContent = theme === 'dark' ? '🌙' : '✨';
+        if (icon) icon.textContent = theme === 'dark' ? '🌙' : '☀️';
     }
 
     localStorage.setItem(STORAGE_KEY, theme);
