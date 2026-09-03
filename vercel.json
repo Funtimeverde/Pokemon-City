@@ -1,9 +1,12 @@
 {
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "framework": "static",
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "remix",
   "cleanUrls": true,
   "trailingSlash": false,
+  "env": {
+    "NODE_ENV": "production"
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -23,7 +26,7 @@
       ]
     },
     {
-      "source": "/static/(.*)",
+      "source": "/build/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -35,23 +38,7 @@
   "rewrites": [
     {
       "source": "/cards",
-      "destination": "/cards/index.html"
-    },
-    {
-      "source": "/cards/",
-      "destination": "/cards/index.html"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/tcg",
-      "destination": "/cards",
-      "permanent": true
-    },
-    {
-      "source": "/eeveelutions",
-      "destination": "/cards",
-      "permanent": true
+      "destination": "/cards"
     }
   ]
 }
