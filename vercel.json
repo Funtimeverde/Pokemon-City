@@ -1,0 +1,57 @@
+{
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "framework": "static",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/cards",
+      "destination": "/cards/index.html"
+    },
+    {
+      "source": "/cards/",
+      "destination": "/cards/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/tcg",
+      "destination": "/cards",
+      "permanent": true
+    },
+    {
+      "source": "/eeveelutions",
+      "destination": "/cards",
+      "permanent": true
+    }
+  ]
+}
